@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @EnvironmentObject var sessionStore: SessionStore
-
+@State var alertIsPresented: Bool = false
     var totalRevenue: Double {
         sessionStore.sessions.reduce(0) { $0 + $1.total }
     }
@@ -35,7 +35,7 @@ struct DashboardView: View {
                     .font(.title2)
 
              
-             ShareFileButton(fileName: "Transactions.tsv")
+//             ShareFileButton(fileName: "Transactions.tsv")
                 List(itemCounts.sorted { $0.value > $1.value }, id: \.key) { key, value in
                     HStack {
                         Text(key)
@@ -45,7 +45,28 @@ struct DashboardView: View {
                 }
             }
             .padding()
+     Button("Reset Data (Screenshot Admin or copy first!"){
+      alertIsPresented.toggle()
+//      resetData()
+     }
+     .alert("Reset?",isPresented: $alertIsPresented) {
+     
+      Button("Reset") {
+       resetData( )
+      
+      }//button
+      Button("Cancel") {
+       print("Cancel")
+       
+      }
+     } message: {
+      Text("Copy or screenshot data before resetting!")
+     }//.alert
 //        }
-    }
+    }//body view
+ func resetData() {
+  UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+  sessionStore.sessions.removeAll()
+ }
 }
 

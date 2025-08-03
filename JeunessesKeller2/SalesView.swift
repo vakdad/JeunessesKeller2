@@ -41,7 +41,7 @@ struct SalesView: View {
 //                        Text("Total: $\(basketTotal, specifier: "%.2f")")
 //                            .font(.title2)
 //                        Spacer()
-                     Button("Total: $\(basketTotal, specifier: "%.2f")") {
+                     Button("Total: €\(basketTotal, specifier: "%.2f")") {
                          sessionStore.addSession(items: basket)
                          basket.removeAll()
                      }
