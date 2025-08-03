@@ -34,9 +34,8 @@ struct DashboardView: View {
                 Text("Total Revenue: $\(String(format: "%.2f", totalRevenue))")
                     .font(.title2)
 
-                Text("Top Selling Items:")
-                    .font(.title3)
-
+             
+             ShareFileButton(fileName: "Transactions.tsv")
                 List(itemCounts.sorted { $0.value > $1.value }, id: \.key) { key, value in
                     HStack {
                         Text(key)
