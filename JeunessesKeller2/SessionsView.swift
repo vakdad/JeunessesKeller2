@@ -28,18 +28,20 @@ struct SessionsView: View {
                             ForEach(session.items) { item in
                                 HStack {
                                     Text("\(item.name) x\(item.quantity)")
-                                    Spacer()
-                                    Text("$\(String(format: "%.2f", item.unitPrice * Double(item.quantity)))")
+//                                    Spacer()
+                                    Text("€\(String(format: "%.2f", item.unitPrice * Double(item.quantity)))")
                                 }
                             }
                             HStack {
                                 Spacer()
-                                Text("Total: $\(String(format: "%.2f", session.total))").bold()
+                                Text("Total: €\(String(format: "%.2f", session.total))").bold()
                             }
                         }
                     }
                 }
             }
+            .frame(width: 400)
+            .background(Color.gray)
             .navigationTitle("Sessions")
 //        }//nav view
     }

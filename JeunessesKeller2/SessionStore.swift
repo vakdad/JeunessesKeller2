@@ -30,6 +30,8 @@ class SessionStore: ObservableObject {
         guard let url = getFileURL(),
               let data = try? Data(contentsOf: url),
               let decoded = try? JSONDecoder().decode([PurchaseSession].self, from: data) else { return }
+     print(decoded)
         self.sessions = decoded
+
     }
 }

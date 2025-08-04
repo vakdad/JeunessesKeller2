@@ -27,12 +27,17 @@ struct DashboardView: View {
     var body: some View {
 //        NavigationView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Admin Dashboard")
-                    .font(.largeTitle)
-                    .bold()
+             ZStack(alignment: .bottom) {
+              Image("kellershop image")
+                          .resizable()
+                          .aspectRatio(contentMode: .fit)
+                          .frame(width: 200)
+          
+              Text("Total: €\(String(format: "%.2f", totalRevenue))")
+                  .font(.title2)
+             }
 
-                Text("Total Revenue: $\(String(format: "%.2f", totalRevenue))")
-                    .font(.title2)
+              
 
              
 //             ShareFileButton(fileName: "Transactions.tsv")
@@ -44,8 +49,10 @@ struct DashboardView: View {
                     }
                 }
             }
+            .frame(width: 300)
+            .background(Color(.systemGray6))
             .padding()
-     Button("Reset Data (Screenshot Admin or copy first!"){
+     Button("Reset Data (Screenshot or copy first!)"){
       alertIsPresented.toggle()
 //      resetData()
      }

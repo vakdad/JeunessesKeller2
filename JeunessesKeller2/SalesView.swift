@@ -1,10 +1,10 @@
 import SwiftUI
-
+import AVFoundation
 struct SalesView: View {
     @EnvironmentObject var itemStore: ItemStore
     @EnvironmentObject var sessionStore: SessionStore
     @State private var basket: [BasketItem] = []
-
+ @State private var audioPlayer: AVAudioPlayer?
     var body: some View {
 //        NavigationView {
             VStack {
@@ -15,6 +15,9 @@ struct SalesView: View {
                         ForEach(itemStore.items) { item in
                             Button(action: {
                                 addToBasket(item: item)
+                             let wav = getSoundName(product: item.name)
+                             
+                             playSound(wav: wav)
                             }) {
                                 VStack {
                                     Text(item.name)
@@ -43,6 +46,7 @@ struct SalesView: View {
 //                        Spacer()
                      Button("Total: €\(basketTotal, specifier: "%.2f")") {
                          sessionStore.addSession(items: basket)
+                      playSound(wav: "cash3loudslo")
                          basket.removeAll()
                      }
                      .font(.largeTitle)
@@ -50,7 +54,7 @@ struct SalesView: View {
                      .background(Color.green)
                      .foregroundColor(.white)
                      .cornerRadius(10)
-                 }
+                 }//hstack
                  .frame(width: 350)
                  .padding()
                     List {
@@ -59,13 +63,14 @@ struct SalesView: View {
                                 Text("\(item.name) x\(item.quantity)")
 //                              .font(.largeTitle)
                                 Spacer()
-                                Text("$\(Double(item.quantity) * item.unitPrice, specifier: "%.2f")")
+                                Text("€\(Double(item.quantity) * item.unitPrice, specifier: "%.2f")")
                               .font(.title3)
                             }
                             .frame(width: 200)
                         }
                         .onDelete(perform: removeFromBasket)
-                    }
+                    }//list
+                    .frame(width: 350)
 
                  
                 }
@@ -90,4 +95,38 @@ struct SalesView: View {
     private func removeFromBasket(at offsets: IndexSet) {
         basket.remove(atOffsets: offsets)
     }
+ func playSound(wav: String) {
+       guard let soundURL = Bundle.main.url(forResource: wav, withExtension: "wav") else {
+           print("Sound file not found.")
+           return
+       }
+
+       do {
+        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+                try AVAudioSession.sharedInstance().setActive(true)
+           audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+           audioPlayer?.play()
+       } catch {
+           print("Error playing sound: \(error.localizedDescription)")
+       }
+   }//func playsound
+ func getSoundName(product: String) -> String {
+  switch product {
+  case "Rotwein":
+   return "redwine"
+  case "Weißwein":
+   return "whitewine"
+  case "Bier":
+   return "beerpst"
+  case "Bier0":
+   return "beer2"
+  case "Nüße":
+   return "checker01"
+  case "Sprüdel":
+   return "checker01"
+  default:
+   return "checker01"
+  }
+
+ }
 }

@@ -28,16 +28,22 @@ class ItemStore: ObservableObject {
     private func loadItems() {
         guard let url = getFileURL(), FileManager.default.fileExists(atPath: url.path) else {
             self.items = [
-                SaleItem(name: "Wine", price: 6.0),
-                SaleItem(name: "Beer", price: 5.0),
-                SaleItem(name: "Peanuts", price: 2.5),
-                SaleItem(name: "Pretzels", price: 2.0)
+                SaleItem(name: "Rotwein", price: 6.0),
+                SaleItem(name: "Weißwein", price: 5.0),
+                SaleItem(name: "Bier", price: 2.5),
+                SaleItem(name: "Bier0", price: 2.0),
+                SaleItem(name: "Sprüdel", price: 2.0),
+                SaleItem(name: "Radler", price: 2.0),
+                SaleItem(name: "Nüße", price: 2.0),
+                SaleItem(name: "Bretzel", price: 2.0)
+
             ]
             return
         }
 
         if let data = try? Data(contentsOf: url),
            let decoded = try? JSONDecoder().decode([SaleItem].self, from: data) {
+         print(decoded)
             self.items = decoded
         }
     }

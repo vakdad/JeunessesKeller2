@@ -42,7 +42,7 @@ struct ShareFileButton: UIViewControllerRepresentable {
             guard MFMailComposeViewController.canSendMail(),
                   let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName),
                   let data = try? Data(contentsOf: url) else { return }
-
+print(data)
             let mail = MFMailComposeViewController()
             mail.setSubject("Transactions Report")
             mail.setMessageBody("Attached is the transaction report.", isHTML: false)
