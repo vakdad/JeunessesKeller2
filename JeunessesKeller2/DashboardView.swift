@@ -31,7 +31,7 @@ struct DashboardView: View {
               Image("kellershop image")
                           .resizable()
                           .aspectRatio(contentMode: .fit)
-                          .frame(width: 200)
+                          .frame(width: 280)
           
               Text("Total: €\(String(format: "%.2f", totalRevenue))")
                   .font(.largeTitle)
