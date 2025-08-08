@@ -70,6 +70,9 @@ struct DashboardView: View {
      } message: {
       Text("Copy or screenshot data before resetting!")
      }//.alert
+     let build = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown" + "." + (Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown")
+     Text("Build \(build)")
+      .font(.caption)
 //        }
     }//body view
  func resetData() {
