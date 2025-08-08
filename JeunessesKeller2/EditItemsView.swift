@@ -12,9 +12,10 @@ struct EditItemsView: View {
                     Section(header: Text("Add New Item")) {
                         TextField("Name", text: $newName)
                         TextField("Price", text: $newPrice)
-                            .keyboardType(.decimalPad)
+//                            .keyboardType(.decimalPad)
 
                         Button("Add") {
+                         newPrice = newPrice.replacingOccurrences(of: ",", with: ".")
                             guard let price = Double(newPrice), !newName.isEmpty else { return }
                             let item = SaleItem(name: newName, price: price)
                             itemStore.items.append(item)
@@ -28,9 +29,9 @@ struct EditItemsView: View {
                             VStack(alignment: .leading) {
                                 TextField("Item Name", text: $item.name)
                                 TextField("Price", value: $item.price, formatter: NumberFormatter.currency)
-                                    .keyboardType(.decimalPad)
-                            }
-                        }
+//                                    .keyboardType(.decimalPad)
+                            }//vstack
+                        }//foreach
                         .onDelete { indexSet in
                             itemStore.items.remove(atOffsets: indexSet)
                         }
