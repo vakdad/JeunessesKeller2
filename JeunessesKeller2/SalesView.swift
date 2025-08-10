@@ -11,7 +11,7 @@ struct SalesView: View {
              Text("Keller Shop2")
               .font(.largeTitle)
                 ScrollView {
-                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 5)]) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 10)], spacing: 10) {
                         ForEach(itemStore.items) { item in
                             Button(action: {
                                 addToBasket(item: item)
@@ -25,11 +25,12 @@ struct SalesView: View {
                                   .font(.system(size: 15, weight: .bold))
                                     Text("€\(item.price, specifier: "%.2f")")
                                   .font(.headline)
+                                  .padding(.trailing)
                                 }
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(5)
-                                .padding(5)
+//                                .padding(5)
                             }
                         }
                     }
